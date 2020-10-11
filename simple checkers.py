@@ -99,36 +99,84 @@ def turno(jugador, tablero, rival):
         print("No existe esa dirección")
         movimiento = input("Escribe una dirección válida: ")
      
-    if(tablero[renglon][columna] == "_" or tablero[renglon][columna] == rival):
+    if(tablero[renglon][columna] == "*" or tablero[renglon][columna] == rival):
         print("Pierde turno")
     else:
         
         tablero = mover_ficha(renglon, columna, movimiento, tablero, jugador, rival)
         return tablero
+ 
+def ganador(tablero, jugador):
     
+    if(jugador == 'X'):
+        if('X' in tablero[5]):
+            return True
+    elif(jugador == 'E'):
+        if('E' in tablero[0]):
+            return True
+    else:
+        return False
+
+ 
 def main():
     
     jugador_E = 'E'
     jugador_X = 'X'
     tablero = crear_tablero()
     imprimir_tablero(tablero)
+    empieza = randrange(0,2)
     run = 's'
     
     while(run == 's'):
         
-        print(f'Turno jugador {jugador_E}')
-        turno(jugador_E, tablero, jugador_X)
-        imprimir_tablero(tablero)
-        
-        
-          
-        run = input("Quieres seguir jugando s/n? ")
-        
-        if(run != 's'):
-            break
-        
-        print(f'Turno jugador {jugador_X}')
-        turno(jugador_X, tablero, jugador_E)
-        imprimir_tablero(tablero)
-    
+        # si toca 0 empeiza jugador E
+        if(empieza == 0):
+            print(f'Turno jugador {jugador_E}')
+            tablero = turno(jugador_E, tablero, jugador_X)
+            imprimir_tablero(tablero)
+            #checamos si ganó el jugador E
+            winner = ganador(tablero, jugador_E)
+            if(winner):
+                print("Ganaste")
+                break
+            
+            run = input("Quieres seguir jugando s/n? ")
+            
+            if(run != 's'):
+                break
+            
+            print(f'Turno jugador {jugador_X}')
+            turno(jugador_X, tablero, jugador_E)
+            imprimir_tablero(tablero)
+            #checamos si ganó el jugador X
+            winner = ganador(tablero, jugador_X)
+            if(winner):
+                print("Ganaste")
+                break
+            
+        # si toca 1 empieza jugador X
+        elif(empieza == 1):
+            print(f'Turno jugador {jugador_X}')
+            turno(jugador_X, tablero, jugador_E)
+            imprimir_tablero(tablero)
+            #checamos si ganó el jugador X
+            winner = ganador(tablero, jugador_X)
+            if(winner):
+                print("Ganaste")
+                break
+            
+            run = input("Quieres seguir jugando s/n? ")
+            
+            if(run != 's'):
+                break
+            
+            print(f'Turno jugador {jugador_E}')
+            turno(jugador_E, tablero, jugador_X)
+            imprimir_tablero(tablero)
+            #checamos si ganó el jugador E
+            winner = ganador(tablero, jugador_E)
+            if(winner):
+                print("Ganaste")
+                break
+            
 main()
