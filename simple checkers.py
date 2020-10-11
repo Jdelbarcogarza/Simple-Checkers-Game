@@ -38,7 +38,7 @@ def mover_ficha(renglon, columna, movimiento, tablero, jugador, rival):
     
     nuevo_tablero = tablero
     #movimiento para arriba
-    if(movimiento == 'w' and renglon > 0 and nuevo_tablero[renglon-1][columna] != '*' and nuevo_tablero[renglon-1][columna] != rival):
+    if(movimiento == 'w' and renglon > 0 and nuevo_tablero[renglon-1][columna] == "_"):
         nuevo_tablero[renglon][columna] = '_'
         nuevo_tablero[renglon-1][columna] = jugador
     elif(movimiento == 'w' and nuevo_tablero[renglon-1][columna] == rival and nuevo_tablero[renglon-2][columna] == "_"):   
@@ -46,7 +46,7 @@ def mover_ficha(renglon, columna, movimiento, tablero, jugador, rival):
         nuevo_tablero[renglon-2][columna] = jugador
         
     #movimiento a la izquierda
-    if(movimiento == 'a' and columna > 0 and nuevo_tablero[renglon][columna-1] != '*' and nuevo_tablero[renglon][columna-1] != rival):
+    if(movimiento == 'a' and columna > 0 and nuevo_tablero[renglon][columna-1] == "_"):
         nuevo_tablero[renglon][columna] = '_'
         nuevo_tablero[renglon][columna-1] = jugador
     elif(movimiento == 'a' and nuevo_tablero[renglon][columna-1] == rival and nuevo_tablero[renglon][columna-2] == "_"):
@@ -54,7 +54,7 @@ def mover_ficha(renglon, columna, movimiento, tablero, jugador, rival):
         nuevo_tablero[renglon][columna-2] = jugador
         
     #movimiento a la derecha
-    if(movimiento == 'd' and columna < 5 and nuevo_tablero[renglon][columna+1] != '*' and nuevo_tablero[renglon][columna+1] != rival):
+    if(movimiento == 'd' and columna < 5 and nuevo_tablero[renglon][columna+1] == "_"):
         nuevo_tablero[renglon][columna] = '_'
         nuevo_tablero[renglon][columna+1] = jugador
     elif(movimiento == 'd' and nuevo_tablero[renglon][columna+1] == rival and nuevo_tablero[renglon][columna+2] == "_"):
@@ -62,7 +62,7 @@ def mover_ficha(renglon, columna, movimiento, tablero, jugador, rival):
         nuevo_tablero[renglon][columna+2] = jugador
         
     #movimiento hacia abajo   
-    if(movimiento == 's' and renglon < 5 and nuevo_tablero[renglon+1][columna] != '*' and nuevo_tablero[renglon-1][columna] != rival):
+    if(movimiento == 's' and renglon < 5 and nuevo_tablero[renglon+1][columna] == "_"):
         nuevo_tablero[renglon][columna] = '_'
         nuevo_tablero[renglon+1][columna] = jugador
     elif(movimiento == 's' and nuevo_tablero[renglon+1][columna] == rival and nuevo_tablero[renglon+2][columna] == "_"):
@@ -99,7 +99,7 @@ def turno(jugador, tablero, rival):
         print("No existe esa dirección")
         movimiento = input("Escribe una dirección válida: ")
      
-    if(tablero[renglon][columna] == "_"):
+    if(tablero[renglon][columna] == "_" or tablero[renglon][columna] == rival):
         print("Pierde turno")
     else:
         
